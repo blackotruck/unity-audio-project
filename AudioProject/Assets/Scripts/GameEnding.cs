@@ -16,6 +16,10 @@ public class GameEnding : MonoBehaviour
     bool _IsPlayerCaught = false;
     float _Timer;
 
+    public int _Lives = 3;
+
+
+
     void OnTriggerEnter( Collider other)
     {
         if (other.gameObject == player)
@@ -32,7 +36,12 @@ public class GameEnding : MonoBehaviour
         } 
         else if (_IsPlayerCaught)
         {
-            EndLevel(caughtBackgroundImageCanvasGroup, true);
+            if( _Lives == 0)
+            {
+                EndLevel(caughtBackgroundImageCanvasGroup, true);
+            } else {
+                ResetPlayerPosition();
+            }
         }
     }
 
@@ -57,5 +66,17 @@ public class GameEnding : MonoBehaviour
     public void CaughtPlayer()
     {
         _IsPlayerCaught = true;
+        _Lives -= 1;
+    }
+
+    void ResetPlayerPosition()
+    {
+        _IsPlayerCaught = false;
+        Rigidbody playerRb = player.gameObject.GetComponent<Rigidbody>();
+        Quaternion startRotation = Quaternion.LookRotation(Vector3.forward);
+        Vector3 startPosition = new Vector3(-9.8f, 0f, -3.2f);
+        player.transform.position = startPosition;
+        playerRb.MovePosition(startPosition);
+        playerRb.MoveRotation(startRotation);
     }
 }
