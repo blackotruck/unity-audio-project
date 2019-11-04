@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class GameEnding : MonoBehaviour
 {
@@ -19,8 +20,7 @@ public class GameEnding : MonoBehaviour
     bool _HasAudioPlayed;
 
     public int _Lives = 3;
-
-
+    public AudioMixer masterMixer;
 
     void OnTriggerEnter( Collider other)
     {
@@ -38,6 +38,11 @@ public class GameEnding : MonoBehaviour
         } 
         else if (_IsPlayerCaught)
         {
+            if( _Lives == 1)
+            {
+                Debug.Log("change music");
+                masterMixer.SetFloat("AlmostDeadFilter", 0f);
+            }
             if( _Lives == 0)
             {
                 EndLevel(caughtBackgroundImageCanvasGroup, true, gameoverAudio);

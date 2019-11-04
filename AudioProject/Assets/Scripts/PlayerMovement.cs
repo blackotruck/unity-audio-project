@@ -10,12 +10,17 @@ public class PlayerMovement : MonoBehaviour
     Animator _Animator;
     Rigidbody _RigidBody;
 
+    AudioSource _FootStepsAudioSource;
+    [SerializeField]
+    AudioClip[] _FootStepsClips;
+
     public float turnSpeed = 20f;
     // Start is called before the first frame update
     void Start()
     {
         _Animator = GetComponent<Animator>();
         _RigidBody = GetComponent<Rigidbody>();
+        _FootStepsAudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -32,6 +37,12 @@ public class PlayerMovement : MonoBehaviour
         bool isWalking = hasHorizontalInput || hasVerticalInput;
         _Animator.SetBool("IsWalking", isWalking);
 
+        if (isWalking)
+        {
+            PlayStep();
+        }
+
+
         Vector3 desiredForward = Vector3.RotateTowards(transform.forward, _Movement, turnSpeed * Time.deltaTime, 0f);
         _Rotation = Quaternion.LookRotation(desiredForward);
     }
@@ -40,5 +51,16 @@ public class PlayerMovement : MonoBehaviour
     {
         _RigidBody.MovePosition(_RigidBody.position + _Movement * _Animator.deltaPosition.magnitude);
         _RigidBody.MoveRotation(_Rotation);
+    }
+
+    void PlayStep()
+    {
+        if (!_FootStepsAudioSource.isPlaying)
+        {
+            int clipIndex = Random.Range(0, _FootStepsClips.Length - 1);
+            float pitch = Random.Range(1, 1.25f);
+            _FootStepsAudioSource.pitch = pitch;
+            _FootStepsAudioSource.PlayOneShot(_FootStepsClips[clipIndex], 0.75f);
+        }
     }
 }
