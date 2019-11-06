@@ -20,7 +20,7 @@ public class GameEnding : MonoBehaviour
     bool _HasAudioPlayed;
 
     public int _Lives = 3;
-    public AudioMixer masterMixer;
+    public AudioManager audioManager;
 
     void OnTriggerEnter( Collider other)
     {
@@ -41,7 +41,7 @@ public class GameEnding : MonoBehaviour
             if( _Lives == 1)
             {
                 Debug.Log("change music");
-                masterMixer.SetFloat("AlmostDeadFilter", 0f);
+                audioManager.SetOneLifeMixer();
             }
             if( _Lives == 0)
             {

@@ -377,7 +377,7 @@ MonoBehaviour:
   caughtBackgroundImageCanvasGroup: {fileID: 1942638961}
   gameoverAudio: {fileID: 1549536244}
   _Lives: 3
-  masterMixer: {fileID: 24100000, guid: 0e2ce5e88639c9f4bb52562912188d6c, type: 2}
+  audioManager: {fileID: 583711188}
 --- !u!65 &205993812
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -608,6 +608,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   mainAmbient: {fileID: 8300000, guid: 205287722f2b6b64583b86d65fdeeb11, type: 3}
   _AmbientMusic: {fileID: 1860337560}
+  _OneLifeLeft: {fileID: 8897397879894010546, guid: 0e2ce5e88639c9f4bb52562912188d6c,
+    type: 2}
   musicVolume: 0.5
 --- !u!1 &682560438
 GameObject:

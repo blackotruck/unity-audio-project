@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour
 {
@@ -9,6 +10,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField]
     private AudioSource _AmbientMusic;
     private AudioSource _VariantMusic;
+    [SerializeField]
+    private AudioMixerGroup _OneLifeLeft;
     public float musicVolume = .5f;
 
     void Start()
@@ -46,6 +49,11 @@ public class AudioManager : MonoBehaviour
         }
 
         currentAudio.Stop();
+    }
+
+    public void SetOneLifeMixer()
+    {
+        _AmbientMusic.outputAudioMixerGroup = _OneLifeLeft;
     }
 
 }
